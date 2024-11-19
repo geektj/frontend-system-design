@@ -56,6 +56,22 @@ app.delete("/api/problems/:id", (req, res) => {
   res.json(problems);
 });
 
+app.patch("/api/problems/:id", (req, res) => {
+  const body = req.body;
+  const id = req.params.id;
+  const problem = problems.find((p) => p.id == id)
+  problems = problems.map((p) => {
+    if (p.id == id) {
+      return {
+        ...problem,
+        ...body,
+      };
+    }
+    return p;
+  });
+  res.json(problems);
+});
+
 app.listen(PORT, () => {
   console.log(`server up and running on ${PORT}`);
 });
